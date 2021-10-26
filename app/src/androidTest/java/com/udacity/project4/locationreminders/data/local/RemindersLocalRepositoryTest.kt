@@ -11,13 +11,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.instanceOf
-import org.hamcrest.MatcherAssert.assertThat
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers
+import org.junit.*
 import org.junit.runner.RunWith
+import java.util.*
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -25,6 +23,53 @@ import org.junit.runner.RunWith
 @MediumTest
 class RemindersLocalRepositoryTest {
 
-//    TODO: Add testing implementation to the RemindersLocalRepository.kt
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    private lateinit var repository: RemindersLocalRepository //object under test
+    private lateinit var database: RemindersDatabase
+
+    @Before
+    fun setUp() {
+        database = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            RemindersDatabase::class.java
+        )
+            .allowMainThreadQueries()
+            .build()
+        repository = RemindersLocalRepository(database.reminderDao(), Dispatchers.Main)
+    }
+
+    @After
+    fun closeDB() {
+        database.close()
+    }
+
+
+    @Test
+    fun test_saveReminder_getCorrectReminder() = runBlocking {
+        // Given
+        val data = ReminderDTO(
+            title = null,
+            description = "test",
+            location = "location",
+            latitude = 0.0,
+            longitude = 0.0,
+            id = UUID.randomUUID().toString()
+        )
+        //when
+        repository.saveReminder(data)
+        val reminder = repository.getReminder(data.id) as Result.Success
+        //Then
+        Assert.assertThat(reminder.data.title, `is`(data.title))
+
+    }
+
+    @Test
+    fun test_getNonExistingReminder_returnError() = runBlocking {
+        //when
+        val reminder = repository.getReminder("id") as Result.Error
+        // Then
+        MatcherAssert.assertThat(reminder.message, Matchers.`is`("Reminder not found!"))
+    }
 }

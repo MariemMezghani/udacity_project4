@@ -1,3 +1,4 @@
 <resources>
+   <!-- replace @string/api_key with your api_key-->
     <string name="google_maps_key" templateMergeStrategy = "preserve" translatable="false">@string/api_key</string>
 </resources>
