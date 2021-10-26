@@ -9,6 +9,7 @@ import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
 import kotlinx.coroutines.launch
 
+
 class RemindersListViewModel(
     app: Application,
     private val dataSource: ReminderDataSource

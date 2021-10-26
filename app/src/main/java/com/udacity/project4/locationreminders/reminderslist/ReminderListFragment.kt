@@ -1,9 +1,12 @@
 package com.udacity.project4.locationreminders.reminderslist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
+import com.firebase.ui.auth.AuthUI
 import com.udacity.project4.R
+import com.udacity.project4.authentication.AuthenticationActivity
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentRemindersBinding
@@ -33,6 +36,7 @@ class ReminderListFragment : BaseFragment() {
 
         binding.refreshLayout.setOnRefreshListener { _viewModel.loadReminders() }
 
+
         return binding.root
     }
 
@@ -55,7 +59,7 @@ class ReminderListFragment : BaseFragment() {
         //use the navigationCommand live data to navigate between the fragments
         _viewModel.navigationCommand.postValue(
             NavigationCommand.To(
-                ReminderListFragmentDirections.toSaveReminder()
+                ReminderListFragmentDirections.actionRemindersFragmentToSaveReminderFragment()
             )
         )
     }
@@ -71,17 +75,24 @@ class ReminderListFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logout -> {
-//                TODO: add the logout implementation
+                AuthUI.getInstance()
+                    .signOut(requireContext())
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            activity?.finish()
+                            startActivity(Intent(context, AuthenticationActivity::class.java))
+                        }
+                    }
             }
         }
-        return super.onOptionsItemSelected(item)
+        return  super.onOptionsItemSelected(item)
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 //        display logout as menu item
-        inflater.inflate(R.menu.main_menu, menu)
+        inflater.inflate(R.menu.menu, menu)
     }
 
 }

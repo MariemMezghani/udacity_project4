@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "780751238433",
+    "project_id": "udacity-project4-location-app",
+    "storage_bucket": "udacity-project4-location-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780751238433:android:ece6cd7ec2646c80b63a60",
+        "android_client_info": {
+          "package_name": "com.github.mariemmezghani.locationreminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780751238433-2sktpja6v9opoo1q4bcnm6u330b1gmhf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7juHY17gnStYgb09sc7kQzw3cIkkxrII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780751238433-2sktpja6v9opoo1q4bcnm6u330b1gmhf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780751238433:android:e557c6c0291568b5b63a60",
+        "android_client_info": {
+          "package_name": "com.udacity.project4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780751238433-boppjqk5ra5pj6g3h30j3pnh3mi2qmlg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.udacity.project4",
+            "certificate_hash": "0e5d22303fd08cda31bb8e38eacbccb1d4cf2f8f"
+          }
+        },
+        {
+          "client_id": "780751238433-2sktpja6v9opoo1q4bcnm6u330b1gmhf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7juHY17gnStYgb09sc7kQzw3cIkkxrII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780751238433-2sktpja6v9opoo1q4bcnm6u330b1gmhf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
