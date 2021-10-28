@@ -101,9 +101,9 @@ class SaveReminderFragment : BaseFragment() {
             //use the user entered reminder details to:
             // 1) add a geofencing request
             // 2) save the reminder to the local db
-            if (!foregroundAndBackgroundLocationPermissionApproved()){
+            if (!foregroundAndBackgroundLocationPermissionApproved()) {
                 requestForegroundAndBackgroundLocationPermissions()
-            }else{
+            } else {
                 checkDeviceLocationSettingsAndStartGeofence()
             }
 
@@ -219,6 +219,7 @@ class SaveReminderFragment : BaseFragment() {
                     checkDeviceLocationSettingsAndStartGeofence()
                 }.show()
             }
+            //
         }
         locationSettingsResponseTask.addOnCompleteListener {
             // if locationSettingsResponseTask completes, check if it is successful
@@ -229,7 +230,9 @@ class SaveReminderFragment : BaseFragment() {
     }
 
     /*
-    * this method checks if the user has turned the location on.
+    * After the user
+    // chooses whether to accept or deny device location permissions, this checks
+    // if the user has chosen to accept the permissions. If not, it will ask again.
     * If not, it will ask him again*/
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
