@@ -218,7 +218,6 @@ class SaveReminderFragment : BaseFragment() {
                     checkDeviceLocationSettingsAndStartGeofence()
                 }.show()
             }
-            checkDeviceLocationSettingsAndStartGeofence()
 
         }
         locationSettingsResponseTask.addOnCompleteListener {
