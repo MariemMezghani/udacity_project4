@@ -2,9 +2,7 @@ package com.udacity.project4.locationreminders.savereminder.selectreminderlocati
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
-import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.net.Uri
@@ -15,8 +13,6 @@ import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -55,7 +51,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater,R.layout.fragment_select_location, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_select_location, container, false)
 
         binding.viewModel = _viewModel
         binding.lifecycleOwner = this
@@ -73,7 +69,12 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             LocationServices.getFusedLocationProviderClient(requireContext())
 
         binding.saveButton.setOnClickListener {
-            onLocationSelected()
+            if (latitude !== null && longitude != null) {
+                onLocationSelected()
+            } else {
+                Toast.makeText(requireActivity(), R.string.select_location, Toast.LENGTH_LONG)
+                    .show()
+            }
         }
         return binding.root
     }
@@ -95,11 +96,10 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        setMapStyle(mMap)
         enableMyLocation()
-        zoomToDeviceLocation()
         setMapLongClick(mMap)
         setPoiClick(mMap)
-        setMapStyle(mMap)
     }
 
     private fun isPermissionGranted(): Boolean {
@@ -113,6 +113,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
             mMap.setMyLocationEnabled(true)
+            zoomToDeviceLocation()
         } else {
             requestPermissions(
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
