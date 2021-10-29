@@ -105,3 +105,4 @@ fun DataBindingIdlingResource.monitorFragment(fragmentScenario: FragmentScenario
     }
 }
 
+
